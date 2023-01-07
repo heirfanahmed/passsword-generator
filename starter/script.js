@@ -1,4 +1,4 @@
-// Array of special characters to be included in password
+// Array of special characters to be included in password, if selected in the getPasswordOptions function
 var specialCharacters = [
   '@',
   '%',
@@ -25,10 +25,10 @@ var specialCharacters = [
   '.'
 ];
 
-// Array of numeric characters to be included in password
+// Array of numeric characters to be included in password, if selected in the getPasswordOptions function
 var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-// Array of lowercase characters to be included in password
+// Array of lowercase characters to be included in password, if selected in the getPasswordOptions function
 var lowerCasedCharacters = [
   'a',
   'b',
@@ -58,7 +58,7 @@ var lowerCasedCharacters = [
   'z'
 ];
 
-// Array of uppercase characters to be included in password
+// Array of uppercase characters to be included in password, if selected in the getPasswordOptions function
 var upperCasedCharacters = [
   'A',
   'B',
@@ -88,22 +88,47 @@ var upperCasedCharacters = [
   'Z'
 ];
 
+// global variables to be used inside or outside functions
 var getPassword;
+var passwordCharacterLength = 10;
+var choicearr = [];
 
-// Function to prompt user for password options
+// Function to prompt user for password options and show error if selected non-integer or characters less than 10 or greater than 64
 function getPasswordOptions() {
-  if (prompt("do you want " + specialCharacters) == true ||
-      confirm("do you want " + numericCharacters) == true ||
-      confirm("do you want " + lowerCasedCharacters) == true ||
-      confirm("do you want " + upperCasedCharacters) == true) {
-      getPassword = specialCharacters + numericCharacters + lowerCasedCharacters + upperCasedCharacters;
-      } else{
-        alert("you need to select atleast one of the options");
-      }
+  passwordCharacterLength = prompt("Please select number of characters you want your password to be? Please note the number should be between 10 and 64)");
+  if (isNaN(passwordCharacterLength)) {
+    alert("You need to select only INTEGERS!");
+    return false;
+  } else if (passwordCharacterLength < 10 || passwordCharacterLength > 64) {
+    alert("You can select characters only between 10 & 64!");
+    return false;
   }
- 
-  console.log(getPassword);
+  // confirm atleast one is selected
+  if (confirm("Do you want special characters in your password?")) {
+    choicearr = choicearr.concat(specialCharacters);
+  }
+  if (confirm("Do you want numeric characters in your password?")) {
+    choicearr = choicearr.concat(numericCharacters);
+  }
+  if (confirm("Do you want alphabets with lower case in your password?")) {
+    choicearr = choicearr.concat(lowerCasedCharacters);
+  }
+  if (confirm("Do you want alphabets with upper case in your password?")) {
+      choicearr = choicearr.concat(upperCasedCharacters);      
+    }
+    return true;
+  if (choicearr = null) {
+     alert("Sorry, cannot generate password without selecting atleast one character choice!");    
+     return false;
+   }
+  }
 
+// just to see if the variable choicearr is working fine.
+function consoleOutput() {
+ console.log(choicearr);
+}
+ 
+console.log(getPassword);
 // Function for getting a random element from an array
 function getRandom(specialCharacters) {
 //   const random = specialCharacters[Math-.floor(Math.random()*specialCharacters.length)];
@@ -131,7 +156,7 @@ generateBtn.addEventListener('click', writePassword);
 
 if (confirm("Do you want to Generate Password")) {
   getPasswordOptions();
-  getRandom(specialCharacters);
+  consoleOutput();
 }
   else {
   alert("See you later!");
