@@ -35,10 +35,13 @@
 
 
 ## Screen Shot of the website
-  ** 
+  ![](assets/deployed-website.png)
 
 
 ## Links to the deployed website and repository URL:
   ** Deployed website:
+     https://heirfanahmed.github.io/passsword-generator/
     
+
   ** Repository URL:
+    https://github.com/heirfanahmed/passsword-generator
