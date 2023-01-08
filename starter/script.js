@@ -88,20 +88,27 @@ var upperCasedCharacters = [
   'Z'
 ];
 
-// global variables to be used inside or outside functions
-var getPassword;
-var passwordCharacterLength = 10;
+
+// Get references to the element #generate.
+var generateBtn = document.querySelector('#generate');
+
+// Add event listener to button #generate.
+generateBtn.addEventListener('click', writePassword);
+
+// Global variables to be used inside or outside functions
+var passwordLength = 10;
 var choicearr = [];
 
-// Function to prompt user for password options and show error if selected non-integer or characters less than 10 or greater than 64
+// Function to prompt user for password options and show error if non-integer, characters less than 10 or characters greater than 64 is selected.
 function getPasswordOptions() {
-  passwordCharacterLength = prompt("Please select number of characters you want your password to be? Please note the number should be between 10 and 64)");
-  if (isNaN(passwordCharacterLength)) {
+  choicearr = [];
+  passwordLength = prompt("Please select number of characters you want your password to be? Please note the number should be between 10 and 64)");
+  if (isNaN(passwordLength)) {
     alert("You need to select only INTEGERS!");
     return false;
-  } else if (passwordCharacterLength < 10 || passwordCharacterLength > 64) {
+  } else if (passwordLength < 10 || passwordLength > 64) {
     alert("You can select characters only between 10 & 64!");
-    return false;
+    return false;   
   }
   // confirm atleast one is selected
   if (confirm("Do you want special characters in your password?")) {
@@ -117,47 +124,28 @@ function getPasswordOptions() {
       choicearr = choicearr.concat(upperCasedCharacters);      
     }
     return true;
-  if (choicearr = null) {
-     alert("Sorry, cannot generate password without selecting atleast one character choice!");    
-     return false;
-   }
   }
 
-// just to see if the variable choicearr is working fine.
-function consoleOutput() {
- console.log(choicearr);
-}
- 
-console.log(getPassword);
-// Function for getting a random element from an array
-function getRandom(specialCharacters) {
-//   const random = specialCharacters[Math-.floor(Math.random()*specialCharacters.length)];
-//   alert(random,specialCharacters[random]);
-}
 
-// Function to generate password with user input
+// Function to generate password if user input meets all the conditions of function getPasswordOptions().
 function generatePassword() {
+  var password = "";
+  for (var i = 0; i < passwordLength; i++){
+    var randomIndex = Math.floor(Math.random() * choicearr.length);
+    password += choicearr[randomIndex];
+  }
+  return password;
+  }
 
-}
-
-// Get references to the #generate element
-var generateBtn = document.querySelector('#generate');
-
-// Write password to the #password input
+// Function to write password to #password.
 function writePassword() {
-  var password = generatePassword();
+  var correctPrompts = getPasswordOptions();
   var passwordText = document.querySelector('#password');
-
+ 
+  if (getPasswordOptions) {
+  var password = generatePassword();
   passwordText.value = password;
-}
-
-// Add event listener to generate button
-generateBtn.addEventListener('click', writePassword);
-
-if (confirm("Do you want to Generate Password")) {
-  getPasswordOptions();
-  consoleOutput();
-}
-  else {
-  alert("See you later!");
-};
+  } else {
+  passwordText.value = "";
+  }
+  }
